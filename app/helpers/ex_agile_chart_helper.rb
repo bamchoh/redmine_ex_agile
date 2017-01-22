@@ -1,0 +1,2 @@
+module ExAgileChartHelper
+end
