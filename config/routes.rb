@@ -2,7 +2,7 @@
 # See: http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
 	resources :projects do
-		get 'ex_agile_chart' => 'ex_agile_chart#index'
-		get 'ex_agile_chart/list' => 'ex_agile_chart#list'
+		get 'redmine_ex_agile' => 'redmine_ex_agile#index'
+		get 'redmine_ex_agile/list' => 'redmine_ex_agile#list'
 	end
 end

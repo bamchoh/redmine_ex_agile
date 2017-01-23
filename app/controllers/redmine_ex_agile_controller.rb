@@ -1,4 +1,4 @@
-class ExAgileChartController < AgileChartsController
+class RedmineExAgileController < AgileChartsController
   unloadable
 
 	before_filter :find_project

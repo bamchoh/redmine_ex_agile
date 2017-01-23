@@ -1,14 +1,14 @@
-Redmine::Plugin.register :ex_agile_chart do
-  name 'Extended Chart Reporter'
+Redmine::Plugin.register :redmine_ex_agile do
+  name 'Extends Redmine Agile plugin'
   author 'bamchoh'
-  description 'This is extended for Agile Burndown chart.'
+  description 'This extends for Redmine Agile plugin.'
   version '0.0.1'
-  url 'http://github.com/bamchoh/ex_agile_chart'
+  url 'http://github.com/bamchoh/redmine_ex_agile'
   author_url 'http://github.com/bamchoh'
 
-	project_module :ex_agile_chart do
-		permission :view_ex_agile_chart, :ex_agile_chart => [:index]
+	project_module :redmine_ex_agile do
+		permission :view_redmine_ex_agile, :redmine_ex_agile => [:index]
 	end
 
-	menu :project_menu, :ex_agile_chart, { :controller => 'ex_agile_chart', :action => 'index' }, :param => :project_id
+	menu :project_menu, :redmine_ex_agile, { :controller => 'redmine_ex_agile', :action => 'index' }, :param => :project_id
 end

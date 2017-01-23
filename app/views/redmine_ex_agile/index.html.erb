@@ -2,7 +2,7 @@
 <% html_title(@query.new_record? ? l(:label_agile_chart_plural) : @query.name) %>
 
 
-<%= form_tag({ :controller => 'ex_agile_chart', :action => 'index', :project_id => @project },
+<%= form_tag({ :controller => 'redmine_ex_agile', :action => 'index', :project_id => @project },
             :method => :get, :id => 'query_form') do %>
   <div id="query_form_with_buttons" class="hide-when-print">
     <%= hidden_field_tag 'set_filter', '1' %>
