@@ -6,7 +6,11 @@ class RedmineExAgileController < AgileChartsController
 
   def index
 		retrieve_charts_query
-    @query.date_to ||= Date.today
+    @query.date_from ||= Date.today
+    @issues = @query.issues
+		params["date_from"] = @query.date_from
+    @query.date_to ||= Date.today + 1
+		params["date_to"] = @query.date_to
   end
 
 	def list
