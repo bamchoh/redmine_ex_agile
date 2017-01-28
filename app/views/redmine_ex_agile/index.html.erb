@@ -29,37 +29,44 @@
                 <%= text_field_tag 'date_to', @query.date_to, :size => 10 %><%= calendar_for('date_to') %>
               </td>
             </tr>
+            <tr>
+              <td>User</td>
+              <td>
+                <%= select_tag 'user_list', options_for_select(@all_users.map { |m| [m.name, m.id] }, :selected => @selected_users), :multiple => true %>
+              </td>
+            </tr>
           </table>
         </div>
       </fieldset>
     </div>
+
     <p class="buttons">
-      <%= link_to_function l(:button_apply), '$("#query_form").submit()', :class => 'icon icon-checked' %>
-      <%= link_to l(:button_clear), { :set_filter => 1, :project_id => @project }, :class => 'icon icon-reload'  %>
+    <%= link_to_function l(:button_apply), '$("#query_form").submit()', :class => 'icon icon-checked' %>
+    <%= link_to l(:button_clear), { :set_filter => 1, :project_id => @project }, :class => 'icon icon-reload'  %>
     </p>
   </div>
 <% end %>
 
 <% params["set_filter"] = 1 %>
 <div style="border: 2px solid #4185f2; margin-bottom: 10px; margin-right: 10px; display:inline-block;" >
-<h2 style="text-align: center; background-color: #4185f2; color: #c5d3ea; margin-bottom: 10px;" >TOTAL</h2>
-<embed height="400" type="image/svg+xml" src="/redmine/agile/charts/render_chart?<%= params.to_param %>" />
+  <h2 style="text-align: center; background-color: #4185f2; color: #c5d3ea; margin-bottom: 10px;" >TOTAL</h2>
+  <embed height="400" type="image/svg+xml" src="/redmine/agile/charts/render_chart?<%= params.to_param %>" />
 </div>
-<% users = @query.available_filters["assigned_to_id"][:values] %>
-<% users.each do |name, id| %>
-	<% next if id == "me" %>
-	<% if params["f"].to_a.index("assigned_to_id") %>
-		<% params["v"]["assigned_to_id"] = [id] %>
-	<% else %>
-		<% params["f"] ||= [] %>
-		<% params["f"].unshift("assigned_to_id") %>
-		<% params["v"] ||= {} %>
-		<% params["v"]["assigned_to_id"] = [id] %>
-		<% params["op"] ||= {} %>
-		<% params["op"]["assigned_to_id"] = "=" %>
-	<% end %>
-	<div style="border: 2px solid #74D170; margin-bottom: 10px; margin-right: 10px; display:inline-block;" >
-		<h2 style="text-align: center; background-color: #74D170;" ><%= name %></h2>
-		<embed height="400" type="image/svg+xml" src="/redmine/agile/charts/render_chart?<%= params.to_param %>" />
-	</div>
+<% if @selected_users %>
+  <% @selected_users.each do |id| %>
+    <% if params["f"].to_a.index("assigned_to_id") %>
+      <% params["v"]["assigned_to_id"] = [id] %>
+    <% else %>
+      <% params["f"] ||= [] %>
+      <% params["f"].unshift("assigned_to_id") %>
+      <% params["v"] ||= {} %>
+      <% params["v"]["assigned_to_id"] = [id] %>
+      <% params["op"] ||= {} %>
+      <% params["op"]["assigned_to_id"] = "=" %>
+    <% end %>
+    <div style="border: 2px solid #74D170; margin-bottom: 10px; margin-right: 10px; display:inline-block;" >
+      <h2 style="text-align: center; background-color: #74D170;" ><%= @project.memberships.find(id).name %></h2>
+      <embed height="400" type="image/svg+xml" src="/redmine/agile/charts/render_chart?<%= params.to_param %>" />
+    </div>
+  <% end %>
 <% end %>
