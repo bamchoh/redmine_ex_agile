@@ -32,7 +32,7 @@
             <tr>
               <td>User</td>
               <td>
-                <%= select_tag 'user_list', options_for_select(@all_users.map { |m| [m.name, m.id] }, :selected => @selected_users), :multiple => true %>
+                <%= select_tag 'user_list', options_for_select(@all_users.map { |m| [m.name, m.principal.id] }, :selected => @selected_users), :multiple => true %>
               </td>
             </tr>
           </table>
@@ -65,7 +65,7 @@
       <% params["op"]["assigned_to_id"] = "=" %>
     <% end %>
     <div style="border: 2px solid #74D170; margin-bottom: 10px; margin-right: 10px; display:inline-block;" >
-      <h2 style="text-align: center; background-color: #74D170;" ><%= @project.memberships.find(id).name %></h2>
+      <h2 style="text-align: center; background-color: #74D170;" ><%= find_member_from_all_users(id) %></h2>
       <embed height="400" type="image/svg+xml" src="/redmine/agile/charts/render_chart?<%= params.to_param %>" />
     </div>
   <% end %>
