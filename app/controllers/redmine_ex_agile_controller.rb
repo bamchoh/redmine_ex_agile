@@ -12,7 +12,7 @@ class RedmineExAgileController < AgileChartsController
     @query.date_to ||= Date.today + 1
     params["date_to"] = @query.date_to
     @selected_users = selected_users
-    @all_users = @project.memberships.sorted.to_a
+    @all_users = @project.memberships.active.includes(:member_roles, :roles, :principal).to_a.sort
   end
 
   private
